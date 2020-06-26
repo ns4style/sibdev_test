@@ -6,7 +6,7 @@ import { initToken } from "../../redux/auth/actions";
 import { menuInit } from "../../redux/menu/actions";
 
 const SchemasPage: FC = () => {
-    return <div>SCHEMAS WILL BE HERE</div>;
+    return <div>CREATE WILL BE HERE</div>;
 };
 
 export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps(

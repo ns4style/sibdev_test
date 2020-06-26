@@ -1,4 +1,4 @@
-import { createAsyncAction, createAction  } from "typesafe-actions";
+import { createAsyncAction, createAction } from "typesafe-actions";
 import * as authConstants from "./constants";
 
 type LoginData = {
@@ -17,6 +17,8 @@ export const loginAsync = createAsyncAction(
     authConstants.FAILED
 )<LoginData, SuccessLoginPayloadType, Error>();
 
-export const initToken = createAction(authConstants.INIT_TOKEN)<string>()
+export const initToken = createAction(authConstants.INIT_TOKEN)<string>();
 
 export const resetToken = createAction(authConstants.RESET_TOKEN)();
+
+export const logout = createAction(authConstants.LOGOUT)();

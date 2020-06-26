@@ -10,7 +10,7 @@ interface IProps {}
 const LoginPage: FunctionComponent<IProps> = ({}) => (
     <>
         <Head>
-            <title>Login</title>
+            <title>Логин</title>
         </Head>
         <LoginLayout>
             <LoginContainer />
@@ -20,7 +20,7 @@ const LoginPage: FunctionComponent<IProps> = ({}) => (
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const { access_token } = nextCookies(context);
-    if (access_token && context.res){
+    if (access_token && context.res) {
         context.res.writeHead(302, { location: "/schemas" });
         context.res.end();
     }

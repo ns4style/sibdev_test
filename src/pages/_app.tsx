@@ -6,7 +6,7 @@ import { notification } from "antd";
 import { ConnectedRouter } from "connected-next-router";
 import { FC } from "react";
 import { AppProps } from "next/app";
-import {GlobalLayout} from "../components/Global";
+import { GlobalLayout } from "../components/Global";
 
 notification.config({
     placement: "topRight",
@@ -14,8 +14,7 @@ notification.config({
 });
 
 const theme = {};
-
-const App: FC<AppProps> = ({ Component, pageProps, router }) => {
+const CustomApp: FC<AppProps> = ({ Component, pageProps, router }) => {
     if (router.pathname.startsWith("/login")) {
         return (
             <ConnectedRouter>
@@ -39,4 +38,4 @@ const App: FC<AppProps> = ({ Component, pageProps, router }) => {
     );
 };
 
-export default wrapper.withRedux(App);
+export default wrapper.withRedux(CustomApp);

@@ -1,5 +1,5 @@
 import { all, takeEvery, put, fork } from "redux-saga/effects";
-import {initToken, loginAsync} from "./actions";
+import { initToken, loginAsync, logout, resetToken } from "./actions";
 import axios, { AxiosResponse } from "axios";
 import { apiUrls } from "../../helpers/apiUrls";
 import {
@@ -52,11 +52,11 @@ export function* loginSuccess() {
 
         notificationSuccess(`Привет, ${payload.username.toString()}!`);
 
-        yield put(initToken(payload.access_token))
+        yield put(initToken(payload.access_token));
 
         Cookies.set(COOKIE_NAME, payload.access_token);
 
-        Router.push('/schemas');
+        Router.push("/schemas");
     });
 }
 
@@ -66,6 +66,23 @@ export function* loginFailed() {
     });
 }
 
+export function* logoutSaga() {
+    yield takeEvery(logout, function* (action) {
+        notificationSuccess("Логаут");
+
+        yield put(resetToken());
+
+        Cookies.remove(COOKIE_NAME);
+
+        Router.push("/login");
+    });
+}
+
 export default function* authSaga() {
-    yield all([fork(loginRequest), fork(loginFailed), fork(loginSuccess)]);
+    yield all([
+        fork(loginRequest),
+        fork(loginFailed),
+        fork(loginSuccess),
+        fork(logoutSaga),
+    ]);
 }
