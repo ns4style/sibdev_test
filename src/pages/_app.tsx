@@ -4,9 +4,11 @@ import { GlobalStyles } from "../styles";
 import "antd/dist/antd.min.css";
 import { notification } from "antd";
 import { ConnectedRouter } from "connected-next-router";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { AppProps } from "next/app";
 import { GlobalLayout } from "../components/Global";
+import { useDispatch } from "react-redux";
+import { showErrors } from "../redux/serverErrors/actions";
 
 notification.config({
     placement: "topRight",
@@ -15,6 +17,12 @@ notification.config({
 
 const theme = {};
 const CustomApp: FC<AppProps> = ({ Component, pageProps, router }) => {
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(showErrors());
+        return () => {};
+    }, []);
+
     if (router.pathname.startsWith("/login")) {
         return (
             <ConnectedRouter>

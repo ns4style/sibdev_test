@@ -2,10 +2,7 @@ import { all, takeEvery, put, fork, select } from "redux-saga/effects";
 import { loadSchemas } from "./actions";
 import axios, { AxiosResponse } from "axios";
 import { apiUrls } from "../../helpers/apiUrls";
-import {
-    notificationError,
-    notificationSuccess,
-} from "../../helpers/notifications";
+import {END} from "redux-saga";
 import { RootState } from "../index";
 import { TSchemaItem } from "../../types";
 import { addError } from "../serverErrors/actions";
@@ -31,6 +28,7 @@ export function* schemasRequest() {
         } catch (e) {
             yield put(loadSchemas.failure(e));
         }
+        yield put(END);
     });
 }
 

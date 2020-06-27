@@ -35,6 +35,7 @@
     "@types/react-redux": "^7.1.9",
     "@types/redux-devtools-extension": "^2.13.2",
     "@types/redux-form": "^8.2.6",
+    "@types/redux-saga": "^0.10.5",
     "babel-plugin-styled-components": "^1.10.7",
     "cross-env": "^7.0.2",
     "local-cors-proxy": "^1.1.0",
