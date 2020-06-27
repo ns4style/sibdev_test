@@ -8,6 +8,7 @@ const PasswordInput: FC = () => {
     return (
         <LoginField inputId={"password"} label={"Пароль"}>
             <Field
+                id={"password"}
                 name="password"
                 component={PassInput}
                 type="password"

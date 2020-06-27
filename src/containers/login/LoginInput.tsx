@@ -8,6 +8,7 @@ const LoginInput: FC = () => {
     return (
         <LoginField inputId={"username"} label={"Логин"}>
             <Field
+                id={"username"}
                 name="username"
                 component={TextInput}
                 type="text"

@@ -2,9 +2,9 @@ import { createReducer } from "typesafe-actions";
 import { TSchemaItem } from "../../types";
 import { loadSchemas } from "./actions";
 
-type State = Array<TSchemaItem>;
+type SchemasState = Array<TSchemaItem>;
 
-const initialState: State = [];
+const initialState: SchemasState = [];
 
 const reducer = createReducer(initialState).handleAction(
     loadSchemas.success,

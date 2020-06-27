@@ -1,11 +1,11 @@
 import { createReducer } from "typesafe-actions";
 import { initToken, resetToken } from "./actions";
 
-type State = {
+type AuthState = {
     access_token: string | null;
 };
 
-const initialState: State = {
+const initialState: AuthState = {
     access_token: null,
 };
 

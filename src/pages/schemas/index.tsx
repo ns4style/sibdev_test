@@ -1,13 +1,11 @@
 import { FC, useEffect } from "react";
 import { GetServerSideProps } from "next";
 import nextCookies from "next-cookies";
-import { wrapper } from "../../redux";
+import { SagaStore, wrapper } from "../../redux";
 import { initToken } from "../../redux/auth/actions";
 import { menuInit } from "../../redux/menu/actions";
 import { SchemasContainer } from "../../containers/schemas/SchemasContainer";
 import { loadSchemas } from "../../redux/schemas/actions";
-import { useDispatch } from "react-redux";
-import {END} from 'redux-saga';
 
 const SchemasPage: FC = () => {
     return <SchemasContainer />;
@@ -27,8 +25,7 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
             }
 
             context.store.dispatch(loadSchemas.request());
-            //@ts-ignore
-            await context.store.sagaTask.toPromise();
+            await (context.store as SagaStore).sagaTask.toPromise();
         }
 
         return {

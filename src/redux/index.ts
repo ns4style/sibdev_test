@@ -1,4 +1,4 @@
-import { applyMiddleware, createStore, combineReducers } from "redux";
+import { applyMiddleware, createStore, combineReducers, Store } from "redux";
 import createSagaMiddleware from "redux-saga";
 import { createWrapper, MakeStore } from "next-redux-wrapper";
 import { combinedReducer, reducer } from "./reducers";
@@ -15,6 +15,11 @@ import {
     TypedUseSelectorHook,
     useSelector as useReduxSelector,
 } from "react-redux";
+import { Task } from "redux-saga";
+
+export interface SagaStore extends Store {
+    sagaTask?: Task;
+}
 
 const bindMiddleware = (middleware) => {
     if (process.env.NODE_ENV !== "production") {
@@ -41,7 +46,7 @@ export const makeStore: MakeStore = (context) => {
         initialState,
         bindMiddleware([sagaMiddleware, routerMiddleware])
     );
-    (store as any).sagaTask = sagaMiddleware.run(rootSaga, {});
+    (store as SagaStore).sagaTask = sagaMiddleware.run(rootSaga, {});
 
     return store;
 };

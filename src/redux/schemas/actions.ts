@@ -1,7 +1,6 @@
 import { createAsyncAction } from "typesafe-actions";
 import * as schemasConstants from "./constants";
-import {TSchemaItem} from '../../types';
-
+import { TSchemaItem } from "../../types";
 
 export const loadSchemas = createAsyncAction(
     schemasConstants.REQUEST,

@@ -2,9 +2,9 @@ import { createReducer } from "typesafe-actions";
 import { TServerError } from "../../types";
 import { addError, resetErrors } from "./actions";
 
-type State = Array<TServerError>;
+type SErrorsState = Array<TServerError>;
 
-const initialState: State = [];
+const initialState: SErrorsState = [];
 
 const reducer = createReducer(initialState)
     .handleAction(addError, (state, action) => {

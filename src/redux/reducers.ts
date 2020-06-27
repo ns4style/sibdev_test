@@ -3,6 +3,7 @@ import { combineReducers } from "redux";
 import { authReducer } from "./auth/reducer";
 import { menuReducer } from "./menu/reducer";
 import { schemasReducer } from "./schemas/reducer";
+import { schemaReducer } from "./schema/reducer";
 import { serverErrorsReducer } from "./serverErrors/reducer";
 import { reducer as formReducer } from "redux-form";
 import { routerReducer } from "connected-next-router";
@@ -14,6 +15,7 @@ export const combinedReducer = combineReducers({
     menu: menuReducer,
     schemas: schemasReducer,
     serverErrors: serverErrorsReducer,
+    schema: schemaReducer,
 });
 
 const reducer = (state, action) => {

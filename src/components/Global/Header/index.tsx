@@ -72,10 +72,12 @@ const LogoutItemComponent: FC<IProps> = ({ className }) => {
 const LogoutItem = styled(LogoutItemComponent)`
     margin-left: auto;
     background-color: transparent;
+    border: none;
 `;
 
 const CustomMenu = styled(ComponentMenu)`
     background-color: transparent;
+    border: none;
 `;
 
 const CustomHeader = styled(Component)`
@@ -88,7 +90,6 @@ const CustomHeader = styled(Component)`
 const MenuWrapper = styled.div`
     display: flex;
     align-items: center;
-    maxheight: 100%;
 `;
 
 export { CustomHeader };

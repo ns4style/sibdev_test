@@ -2,15 +2,15 @@ import { createReducer } from "typesafe-actions";
 import { getSelectedKeys } from "../../helpers/menu";
 import { changeLocation, menuInit } from "./actions";
 
-type State = {
+type MenuState = {
     selectedKeys: Array<string>;
 };
 
-const initialState: State = {
+const initialState: MenuState = {
     selectedKeys: [],
 };
 
-const reducer = createReducer<State>(initialState)
+const reducer = createReducer(initialState)
     .handleAction(changeLocation, (state, action) => {
         return {
             ...state,

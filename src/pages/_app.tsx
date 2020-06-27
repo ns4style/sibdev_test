@@ -1,4 +1,4 @@
-import { wrapper } from "../redux";
+import { RootState, useSelector, wrapper } from "../redux";
 import { ThemeProvider } from "styled-components";
 import { GlobalStyles } from "../styles";
 import "antd/dist/antd.min.css";
@@ -18,10 +18,11 @@ notification.config({
 const theme = {};
 const CustomApp: FC<AppProps> = ({ Component, pageProps, router }) => {
     const dispatch = useDispatch();
+    const serverErrors = useSelector((state: RootState) => state.serverErrors);
     useEffect(() => {
         dispatch(showErrors());
         return () => {};
-    }, []);
+    }, [serverErrors]);
 
     if (router.pathname.startsWith("/login")) {
         return (

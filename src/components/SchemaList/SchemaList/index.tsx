@@ -11,9 +11,7 @@ const SchemaList: FC<IProps> = ({ schemas }) => {
     return (
         <List>
             {schemas.map((item) => {
-                return (
-                    <SchemaItem key={item.id} data={item}/>
-                );
+                return <SchemaItem key={item.id} data={item} />;
             })}
         </List>
     );

@@ -12,7 +12,7 @@ export type TFieldItem = {
     label: string;
     type: string;
     options: Array<TOptionsItem>;
-    validation: Array<TValidationItem>;
+    validation: TValidationItem;
 };
 
 export type TOptionsItem = {
@@ -30,5 +30,5 @@ export type TValidationItem = {
 };
 
 export type TServerError = {
-    msg : string
-}
+    msg: string;
+};
