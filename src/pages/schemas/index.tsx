@@ -1,12 +1,15 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { GetServerSideProps } from "next";
 import nextCookies from "next-cookies";
 import { wrapper } from "../../redux";
 import { initToken } from "../../redux/auth/actions";
 import { menuInit } from "../../redux/menu/actions";
+import { SchemasContainer } from "../../containers/schemas/SchemasContainer";
+import { loadSchemas } from "../../redux/schemas/actions";
+import { useDispatch } from "react-redux";
 
 const SchemasPage: FC = () => {
-    return <div>SCHEMAS WILL BE HERE</div>;
+    return <SchemasContainer />;
 };
 
 export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps(
@@ -21,6 +24,8 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
             if (url) {
                 context.store.dispatch(menuInit(url));
             }
+
+            context.store.dispatch(loadSchemas.request());
         }
 
         return {

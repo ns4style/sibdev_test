@@ -49,4 +49,4 @@ export const makeStore: MakeStore = (context) => {
 export type RootState = ReturnType<typeof combinedReducer>;
 export const useSelector: TypedUseSelectorHook<RootState> = useReduxSelector;
 
-export const wrapper = createWrapper(makeStore, { debug: true });
+export const wrapper = createWrapper(makeStore, { debug: false });
