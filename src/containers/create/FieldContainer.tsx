@@ -118,7 +118,7 @@ const Component: FC<IProps & WrappedFieldArrayProps> = ({
     );
 
     useEffect(() => {
-        fields.push({});
+        fields.push({ validation: {} });
         return () => {};
     }, []);
 

@@ -23,7 +23,7 @@ const Component: FC<InjectedFormProps & {}> = ({ array, handleSubmit }) => {
     const dispatch = useDispatch();
 
     function addField() {
-        array.push("fields", {});
+        array.push("fields", { validation: {} });
     }
 
     async function onSubmit(values) {

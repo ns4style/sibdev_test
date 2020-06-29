@@ -13,3 +13,9 @@ export const downloadSchema = createAsyncAction(
     schemaConstants.DOWNLOAD_SUCCESS,
     schemaConstants.DOWNLOAD_FAILED
 )<any, any, Error>();
+
+export const deleteSchema = createAsyncAction(
+    schemaConstants.DELETE_REQUEST,
+    schemaConstants.DELETE_SUCCESS,
+    schemaConstants.DELETE_FAILED
+)<string, any, Error>();

@@ -28,7 +28,10 @@ export function* schemasRequest() {
         } catch (e) {
             yield put(loadSchemas.failure(e));
         }
-        yield put(END);
+
+        if (typeof window === "undefined") {
+            yield put(END);
+        }
     });
 }
 

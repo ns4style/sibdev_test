@@ -3,6 +3,8 @@ import { FC } from "react";
 import { TSchemaItem } from "../../../types";
 import { Button } from "antd";
 import { useRouter } from "next/router";
+import {useDispatch} from "react-redux";
+import {deleteSchema} from "../../../redux/schema/actions";
 
 interface IProps {
     data: TSchemaItem;
@@ -10,8 +12,13 @@ interface IProps {
 
 const SchemaItem: FC<IProps> = ({ data }) => {
     const router = useRouter();
+    const dispatch = useDispatch();
     function onClickHandler() {
         router.push(`/view/[id]`, `/view/${data.id}`);
+    }
+    
+    function onClickDeleteHandler() {
+        dispatch(deleteSchema.request(data.id.toString()))
     }
 
     return (
@@ -20,6 +27,9 @@ const SchemaItem: FC<IProps> = ({ data }) => {
             <ButtonsWrapper>
                 <Button onClick={onClickHandler} type="link">
                     Просмотреть
+                </Button>
+                <Button onClick={onClickDeleteHandler} type="link" danger={true}>
+                    Удалить
                 </Button>
             </ButtonsWrapper>
         </SchemaItemWrapper>
