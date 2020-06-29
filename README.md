@@ -1,30 +1,222 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+##Используется
 
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
+```
+    next.js
+    typescript
+    redux + sagas + typesafe-actions + redux-form
+    axios
+    styled-components
+    antd
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Запуск
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+```
+    yarn install
+    npm run build
+    npm run start
+    npm run corsProxy //(отдельным процессом)
+```
 
-## Learn More
+## Данные для логина
 
-To learn more about Next.js, take a look at the following resources:
+`test:test`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# ТЕСТОВОЕ ЗАДАНИЕ на позицию
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+# Middle Frontend разработчик
 
-## Deploy on Vercel
+В данном задании необходимо реализовать приложение с конструктором
+форм. При реализации необходимо использовать предоставленный API. При
+реализации интерфейса рекомендуется использовать одну из следующих
+ui-библиотек: **Element UI** , **Ant Design**.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Интерфейс готового приложения должен состоять из тех же страниц, что
+указаны в прототипе, **НО,** в точности соответствовать дизайну
+необязательно.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+**Схема** - описание формы, содержащее все поля формы и их параметры.
+Представляется в виде json-объекта.
+
+Пример схемы:
+
+### {
+
+```
+"name": "Название схемы",
+"fields": [
+{
+"key": "login",
+"label": "Логин",
+"type": "string",
+"validation": {
+"required": true,
+"min": "6"
+}
+},
+{
+"key": "password",
+"label": "Пароль",
+"type": "password",
+"validation": {
+"required": true,
+"pattern": "[0-9]",
+"max": "255"
+}
+},
+{
+"key": "role",
+"label": "Роль",
+"type": "select",
+"validation": {
+"required": true
+},
+"options": [
+{
+"key": "admin",
+"value": "Администратор"
+},
+{
+"key": "manager",
+"value": "Менеджер"
+```
+
+### }
+
+### ]
+
+### },
+
+### {
+
+```
+"key": "age",
+"label": "Возраст",
+"type": "number",
+"validation": {
+"required": false,
+"min": "18"
+}
+},
+{
+"key": "notification",
+"label": "Получать уведомления",
+"type": "checkbox",
+"validation": {
+"required": false
+}
+}
+]
+}
+```
+
+**Требования**
+
+При реализации использовать TypeScript. Также, необходимо покрыть 1
+компонент и 1 функцию unit-тестами.
+
+1. Реализовать страницу авторизации пользователя с формой входа:
+   логин, пароль. Для аутентификации использовать API сервера
+   (http://193.124.206.217:3000). Для получения данных от API
+   использовать JWT-токен (предоставляется сервером при
+   авторизации). В личный кабинет могут попасть только
+   авторизованные пользователи, в противном случае - пользователь
+   попадает на страницу входа.
+2. Для авторизации необходимо добавить в запрос заголовок
+   следующего вида: Authorization: bearer <auth_token>. После
+   авторизации пользователь должен попадать на главную страницу
+   личного кабинета, на которой расположен список просмотра схем (в
+   виде таблицы). Под таблицей расположена кнопка “Добавить”, по
+   нажатию на которую происходит переход на страницу добавления
+   схемы.
+
+3) Страница добавления схемы должна состоять из обязательного поля
+   названия схемы и хотя бы одного поля, описывающего схему -
+   свойства схемы.
+
+```
+Каждое свойство схемы описывают следующие поля (все обязательны
+для заполнения, кроме описывающих валидацию):
+a. ключ свойства - текстовое поле;
+b. название свойства - текстовое поле;
+c. поле для отображения - выпадающий список, доступны
+следующие варианты: числовое поле, текстовое поле, пароль,
+номер телефона, чекбокс, выпадающий список с опциями ;
+d. валидация - несколько полей, описывающих валидацию
+свойства для выбранного поля отображения. Варианты
+валидации описаны ниже;
+e. варианты выбора, если выбрано поле для отображения
+“Выпадающий список с опциями” - использовать форму
+добавления опций свойства создаваемой схемы (обязательна
+для заполнения хотя бы одна опция):
+i. по умолчанию отображать поля ввода для одной опции :
+```
+
+1. ключ - текстовое поле, ключи опций не должны
+   повторяться для одного и того же свойства;
+2. значение - текстовое поле, значения опций не
+   должны повторяться для одного и того же
+   свойства;
+   ii. по нажатию на кнопку “Добавить значение” появляется
+   дополнительное поле для ввода значения.
+
+```
+Для каждого поля необходимо описать варианты валидации. Варианты
+валидации полей:
+f. для всех полей:
+i. обязательность заполнения, т.е. является ли поле
+обязательным для заполнения (для выпадающего списка
+проверять наличие выбранной опции);
+g. числовое поле :
+i. максимальное значение;
+ii. минимальное значение.
+h. текстовое поле и пароль :
+i. максимальное количество символов;
+ii. минимальное количество символов;
+iii. шаблон ввода (регулярное выражение).
+i. номер телефона , значения принимать только в формате “+
+(987) 654- 32 - 10” и “8 (987) 654- 32 - 10” (без кавычек).
+```
+
+4. Каждую схему можно просмотреть на отдельной странице. Необходимо
+   реализовать компонент формы, которая формирует поля в
+   соответствии с выбранной схемой, включая валидацию для каждого
+   поля. Под формой необходимо реализовать кнопку, по нажатию на
+
+```
+которую валидируется форма и выводятся ошибки, либо выводится
+текст об успешной валидации.
+```
+
+5. Реализовать выход из приложения.
+
+**Рекомендуется**
+Использование методологии БЭМ.
+Использование библиотеки axios для запросов.
+
+**Документация к API: [http://193.124.206.217:3000/api/](http://193.124.206.217:3000/api/)**
+
+**Ссылка на макет: https://tinyurl.com/y2cq887m**
+
+Рекомендуемое время выполнения тестового задания: 2 - 3 дня
+
+**Полезное**
+
+1. БЭМ: https://en.bem.info/
+2. Axios: https://github.com/axios/axios
+3. UI-библиотеки:
+   a. Element UI: https://element.eleme.io/
+   b. Ant Design: https://ant.design/
+4. Управление состоянием приложения:
+   a. Redux: https://redux.js.org/
+   b. Mobx: https://mobx.js.org/README.html
+   c. Vuex: https://vuex.vuejs.org/
+5. Маршрутизация:
+   a. React Router: https://reacttraining.com/react-router/
+   b. Vue Router: https://router.vuejs.org/
+6. Тестирование:
+   a. Vue Test Utils: https://vue-test-utils.vuejs.org/
+   b. Jest: https://jestjs.io/
+   c. Mocha: https://mochajs.org/
+   d. Chai: https://www.chaijs.com/
+   e. Enzyme: https://airbnb.io/enzyme/
