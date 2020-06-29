@@ -1,4 +1,5 @@
 import { TFieldItem, TValidationItem } from "../types";
+import { TCreateSchemaField } from "./createSchema";
 
 const required = (value: any) => (value ? false : "Required");
 
@@ -27,13 +28,23 @@ const maxNum = (value: string | undefined, maxValue: string) =>
         ? false
         : `Максимальное значение не больше ${maxValue}`;
 
+const unique = (value: string, key: string, fields: Array<any>) => {
+    return value &&
+        key &&
+        Array.isArray(fields) &&
+        fields.filter((item) => item[key] === value).length === 1
+        ? false
+        : "Должно быть уникальным";
+};
+
 const allValidationsHandlers = {
-    required: (value, _) => required(value),
-    minLen: minLen,
-    maxLen: maxLen,
-    pattern: pattern,
-    minNum: minNum,
-    maxNum: maxNum,
+    required: ({ value }, _) => required(value),
+    minLen: ({ value }, minLenValue) => minLen(value, minLenValue),
+    maxLen: ({ value }, maxLenValue) => maxLen(value, maxLenValue),
+    pattern: ({ value }, patternValue) => pattern(value, patternValue),
+    minNum: ({ value }, minNumValue) => minNum(value, minNumValue),
+    maxNum: ({ value }, maxNumValue) => maxNum(value, maxNumValue),
+    unique: ({ value, key, fields }, _) => unique(value, key, fields),
 };
 
 const generateValidation = (validations: TValidationItem) => {
@@ -54,7 +65,7 @@ export const validate = async (schema: Array<TFieldItem>, values: any) => {
     schema.forEach((field) => {
         const fieldValidation = generateValidation(field.validation);
         for (let validateFn of fieldValidation) {
-            const result = validateFn(values[field.key]);
+            const result = validateFn({ value: values[field.key] });
             if (result) {
                 errors[field.key] = result;
                 break;
@@ -62,6 +73,40 @@ export const validate = async (schema: Array<TFieldItem>, values: any) => {
         }
     });
 
+    return errors;
+};
+
+export const validateCreateSchema = (
+    fields: Array<TCreateSchemaField>,
+    values: any,
+    valuesArray?: Array<any> | undefined
+) => {
+    const errors = {};
+    for (const field of fields) {
+        if (field.validation) {
+            const fieldValidation = generateValidation(field.validation);
+            for (let validateFn of fieldValidation) {
+                const result = validateFn({
+                    value: values[field.key],
+                    key: field.key,
+                    fields: valuesArray,
+                });
+                if (result) {
+                    errors[field.key] = result;
+                    break;
+                }
+            }
+        }
+        if (field.fields && values[field.key]) {
+            errors[field.key] = values[field.key].map((fieldSet) => {
+                return validateCreateSchema(
+                    field.fields,
+                    fieldSet,
+                    values[field.key]
+                );
+            });
+        }
+    }
     return errors;
 };
 

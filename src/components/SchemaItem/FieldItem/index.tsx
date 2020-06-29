@@ -5,11 +5,12 @@ import { Label } from "../../Global/Label";
 interface IProps {
     name: string;
     required?: boolean;
+    short?: boolean;
 }
 
-const FieldItem: FC<IProps> = ({ children, name, required }) => {
+const FieldItem: FC<IProps> = ({ children, name, required, short }) => {
     return (
-        <FieldWrapper>
+        <FieldWrapper short={short}>
             <Label required={required}>{name}</Label>
             <div>{children}</div>
         </FieldWrapper>
@@ -18,6 +19,7 @@ const FieldItem: FC<IProps> = ({ children, name, required }) => {
 
 const FieldWrapper = styled.div`
     margin-bottom: 30px;
+    width: ${(props) => (!props.short ? "100%" : "422px")};
 `;
 
 export { FieldItem };

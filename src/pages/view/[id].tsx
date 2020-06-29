@@ -7,6 +7,7 @@ import { loadSchema } from "../../redux/schema/actions";
 import ErrorPage from "next/error";
 import { ParsedUrlQuery } from "querystring";
 import { ViewContainer } from "../../containers/view/ViewContainer";
+import Head from "next/head";
 
 interface IProps {
     isError?: boolean | undefined;
@@ -20,7 +21,14 @@ const SchemaPage: FC<IProps> = ({ isError }) => {
     if (isError) {
         return <ErrorPage statusCode={404} />;
     }
-    return <ViewContainer />;
+    return (
+        <>
+            <Head>
+                <title>Просмотр схемы</title>
+            </Head>
+            <ViewContainer />
+        </>
+    );
 };
 
 export const getServerSideProps: GetServerSideProps<

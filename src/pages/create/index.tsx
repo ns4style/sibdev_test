@@ -1,12 +1,21 @@
-import { FC } from "react";
+import React, { FC } from "react";
 import { GetServerSideProps } from "next";
 import nextCookies from "next-cookies";
 import { wrapper } from "../../redux";
 import { initToken } from "../../redux/auth/actions";
 import { menuInit } from "../../redux/menu/actions";
+import { CreateContainer } from "../../containers/create/CreateContainer";
+import Head from "next/head";
 
 const SchemasPage: FC = () => {
-    return <div>CREATE WILL BE HERE</div>;
+    return (
+        <>
+            <Head>
+                <title>Создание схемы</title>
+            </Head>
+            <CreateContainer />
+        </>
+    );
 };
 
 export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps(
@@ -22,7 +31,6 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
                 context.store.dispatch(menuInit(url));
             }
         }
-
         return {
             props: {},
         };

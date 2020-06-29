@@ -4,17 +4,20 @@ import { WrappedFieldProps } from "redux-form";
 import { InputError } from "../InputError";
 import { InputWrapper } from "../InputWrapper";
 import { TOptionsItem } from "../../../types";
+import { placeholder } from "@babel/types";
 
 const { Option } = Select;
 
 interface IProps {
     options: Array<TOptionsItem>;
+    placeholder?: string;
 }
 
 const SelectInput: FC<WrappedFieldProps & IProps> = ({
     input,
     meta,
     options,
+    placeholder,
 }) => {
     const showError = meta.touched && meta.error;
 
@@ -26,16 +29,16 @@ const SelectInput: FC<WrappedFieldProps & IProps> = ({
         <InputWrapper error={showError}>
             <Select
                 allowClear
-                placeholder={"Выберите"}
-                value={input.value}
+                placeholder={placeholder}
+                value={!!input.value ? input.value : undefined}
                 size={"large"}
                 style={{ width: "100%" }}
                 onChange={onChangeHandler}
             >
                 {options.map((option) => {
                     return (
-                        <Option key={option.key} value={option.value}>
-                            {option.key}
+                        <Option key={option.key} value={option.key}>
+                            {option.value}
                         </Option>
                     );
                 })}

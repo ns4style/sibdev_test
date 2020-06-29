@@ -7,3 +7,9 @@ export const loadSchema = createAsyncAction(
     schemaConstants.LOAD_SUCCESS,
     schemaConstants.LOAD_FAILED
 )<string, TSchemaItem, Error>();
+
+export const downloadSchema = createAsyncAction(
+    schemaConstants.DOWNLOAD_REQUEST,
+    schemaConstants.DOWNLOAD_SUCCESS,
+    schemaConstants.DOWNLOAD_FAILED
+)<any, any, Error>();

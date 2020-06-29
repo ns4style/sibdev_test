@@ -11,10 +11,6 @@ const ResultItem: FC<IProps> = ({ submitSucceeded, submitFailed }) => {
     if (!submitFailed && !submitSucceeded) {
         return null;
     }
-    console.group();
-    console.log("submitFailed: " + submitFailed);
-    console.log("submitSucceeded: " + submitSucceeded);
-    console.groupEnd();
     return (
         <Wrapper>
             {submitSucceeded && (

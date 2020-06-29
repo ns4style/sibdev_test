@@ -4,6 +4,7 @@ import { authReducer } from "./auth/reducer";
 import { menuReducer } from "./menu/reducer";
 import { schemasReducer } from "./schemas/reducer";
 import { schemaReducer } from "./schema/reducer";
+import { createTabsReducer } from "./createTabs/reducer";
 import { serverErrorsReducer } from "./serverErrors/reducer";
 import { reducer as formReducer } from "redux-form";
 import { routerReducer } from "connected-next-router";
@@ -16,6 +17,7 @@ export const combinedReducer = combineReducers({
     schemas: schemasReducer,
     serverErrors: serverErrorsReducer,
     schema: schemaReducer,
+    createTabs: createTabsReducer,
 });
 
 const reducer = (state, action) => {
@@ -26,6 +28,9 @@ const reducer = (state, action) => {
         };
         if (typeof window !== "undefined" && state?.router) {
             nextState.router = state.router;
+        }
+        if (typeof window !== "undefined" && state?.form) {
+            nextState.form = state.form;
         }
         return nextState;
     } else {

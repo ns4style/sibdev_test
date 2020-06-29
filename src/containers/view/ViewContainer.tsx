@@ -24,7 +24,6 @@ const Component: FC<InjectedFormProps> = ({
 
     async function onSubmit(values) {
         const result = await validate(data.fields, values);
-        console.log(result);
         if (!!Object.keys(result).length) {
             throw new SubmissionError(result);
         }

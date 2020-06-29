@@ -6,9 +6,17 @@ import { initToken } from "../../redux/auth/actions";
 import { menuInit } from "../../redux/menu/actions";
 import { SchemasContainer } from "../../containers/schemas/SchemasContainer";
 import { loadSchemas } from "../../redux/schemas/actions";
+import Head from "next/head";
 
 const SchemasPage: FC = () => {
-    return <SchemasContainer />;
+    return (
+        <>
+            <Head>
+                <title>Список схем</title>
+            </Head>
+            <SchemasContainer />
+        </>
+    );
 };
 
 export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps(
